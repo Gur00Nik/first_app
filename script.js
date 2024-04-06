@@ -1,4 +1,4 @@
-const numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели", "");
+let numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели", "");
 
 const firstEducation = {
   nameFilms: prompt("Один из последних просмотренных фильмов", ""),
@@ -10,8 +10,8 @@ const secondEducation = {
 };
 
 String(numberOfFilms) !== "NaN"
-  ? alert(`Пользователь посмотрел: ${numberOfFilms} фильмов`)
-  : alert(`Пользователь ввел не число`);
+  ? numberOfFilms
+  : (numberOfFilms = "пользователь ввел не число");
 
 const personalMovieDB = {
   count: numberOfFilms,
