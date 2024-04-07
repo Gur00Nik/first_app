@@ -1,4 +1,3 @@
-let numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели", "");
 
 const personalMovieDB = {
   count: undefined,
@@ -8,9 +7,11 @@ const personalMovieDB = {
   privat: false,
 };
 
-while (String(numberOfFilms) == "NaN" || numberOfFilms < 0) {
-  alert("ошибка при вводе количества просмотренных фильмов");
-  numberOfFilms = +prompt("Введите количество просмотренных фильмов");
+let numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели", "");
+
+for (; String(numberOfFilms) == "NaN" || numberOfFilms < 0; ) {
+  alert("Неккоретный ввод. Повторите");
+  numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели", "");
 }
 
 numberOfFilms <= 10
@@ -36,26 +37,17 @@ inputInfo: for (let i = 1; isReady == true; i++) {
 
   let ratingFilm = +prompt("Оцените фильм", "0");
 
-  while (String(ratingFilm) == "NaN" || ratingFilm > 10 || ratingFilm < 0) {
-    alert("Обозначьте рейтинг фильма от 0 до 10");
-    ratingFilm = +prompt("оцените фильм", "0");
+  for (; String(ratingFilm) == "NaN" || ratingFilm > 10; ) {
+    alert("некоректное ввод рейтинга фильма. Повторите");
+    ratingFilm = +prompt("Оцените фильм", "0");
   }
 
   personalMovieDB.movies[`film number ${i}`].rating = ratingFilm;
 
   isReady = confirm("Хотите добавить еще фильм?");
 }
-// const firstEducation = {
-//   nameFilms: prompt("Один из последних просмотренных фильмов", ""),
-//   rating: +prompt("На сколько оцените его", ""),
-// };
-// const secondEducation = {
-//   nameFilms: prompt("Один из последних просмотренных фильмов", ""),
-//   rating: +prompt("На сколько оцените его", ""),
-// };
 
-// String(numberOfFilms) !== "NaN"
-//   ? numberOfFilms
-//   : (numberOfFilms = "пользователь ввел не число");
+personalMovieDB.count = numberOfFilms;
+
 
 console.log(personalMovieDB);
