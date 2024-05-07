@@ -3,7 +3,7 @@ const personalMovieDB = {
   movies: {},
   acrtors: {},
   genres: [],
-  private: true,
+  private: false,
   showMyDB: function () {
     return this.private
       ? console.log(this)
@@ -11,9 +11,22 @@ const personalMovieDB = {
   },
   writeYourGenres: function () {
     for (let i = 1; i < 4; i++) {
-      this.genres.push(prompt(`Ваш любимый жанр под номером ${i}`)
-      );
+      let answerQuestionForGenres = prompt(`Ваш любимый жанр под номером ${i}`);
+      while (
+        !answerQuestionForGenres.trim() ||
+        typeof answerQuestionForGenres == "number"
+      ) {
+        alert(`Неверный ввод, повторите попытку`);
+        answerQuestionForGenres = prompt(`Ваш любимый жанр под номером ${i}`);
+      }
+      this.genres.push(answerQuestionForGenres);
     }
+    this.genres.forEach((item, index) => {
+      console.log(`Любимый жанр по номером ${index + 1} - это ${item} `);
+    });
+  },
+  toogleVisibleMyDB: function () {
+    this.private = !this.private;
   },
 };
 
@@ -62,5 +75,7 @@ inputInfo: for (let i = 1; isReady == true; i++) {
   movies[`film number ${i}`].rating = ratingFilm;
   isReady = confirm("Хотите добавить еще фильм?");
 }
+personalMovieDB.toogleVisibleMyDB();
+
 personalMovieDB.writeYourGenres();
 personalMovieDB.showMyDB();
