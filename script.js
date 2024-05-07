@@ -1,15 +1,27 @@
-
 const personalMovieDB = {
   count: undefined,
   movies: {},
   acrtors: {},
   genres: [],
-  privat: false,
+  private: true,
+  showMyDB: function () {
+    return this.private
+      ? console.log(this)
+      : console.log("Пользователь скрыл информацию о своей базе");
+  },
+  writeYourGenres: function () {
+    for (let i = 1; i < 4; i++) {
+      this.genres.push(prompt(`Ваш любимый жанр под номером ${i}`)
+      );
+    }
+  },
 };
+
+const { movies } = personalMovieDB;
 
 let numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели", "");
 
-for (; String(numberOfFilms) == "NaN" || numberOfFilms < 0; ) {
+while (Number.isNaN(Number(numberOfFilms)) || numberOfFilms < 0) {
   alert("Неккоретный ввод. Повторите");
   numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели", "");
 }
@@ -20,15 +32,17 @@ numberOfFilms <= 10
   ? alert("Вы средний любитель фильмов")
   : alert("Вы заядлый киноман");
 
+personalMovieDB.count = numberOfFilms;
+
 let isReady = confirm("Вы готовы пройти опрос");
 
 inputInfo: for (let i = 1; isReady == true; i++) {
-  personalMovieDB.movies[`film number ${i}`] = {};
+  movies[`film number ${i}`] = {};
 
   let nameFilm = prompt("Название фильма", "");
 
   if (nameFilm && nameFilm.length < 50) {
-    personalMovieDB.movies[`film number ${i}`].name = nameFilm;
+    movies[`film number ${i}`].name = nameFilm;
   } else {
     --i;
     alert("некоректное название фильма");
@@ -37,17 +51,16 @@ inputInfo: for (let i = 1; isReady == true; i++) {
 
   let ratingFilm = +prompt("Оцените фильм", "0");
 
-  for (; String(ratingFilm) == "NaN" || ratingFilm > 10; ) {
+  while (
+    Number.isNaN(Number(ratingFilm)) ||
+    ratingFilm > 10 ||
+    ratingFilm < 0
+  ) {
     alert("некоректное ввод рейтинга фильма. Повторите");
     ratingFilm = +prompt("Оцените фильм", "0");
   }
-
-  personalMovieDB.movies[`film number ${i}`].rating = ratingFilm;
-
+  movies[`film number ${i}`].rating = ratingFilm;
   isReady = confirm("Хотите добавить еще фильм?");
 }
-
-personalMovieDB.count = numberOfFilms;
-
-
-console.log(personalMovieDB);
+personalMovieDB.writeYourGenres();
+personalMovieDB.showMyDB();
